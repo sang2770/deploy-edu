@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  database-education:
+    container_name: database-education
+    image: "sang2770/education:sql"
+    ports:
+      - 5432:5432
+    networks:
+      - education-network
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} # The PostgreSQL user (useful to connect to the database-education)
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # The PostgreSQL password (useful to connect to the database-education)
+      POSTGRES_DB: postgres # The PostgreSQL default database-education (automatically created at first launch)
+  nginx:
+    image: nginx:latest
+    ports:
+      - ${NGX_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./logs:/var/log/nginx
+    depends_on:
+      - education
+    networks:
+      - education-network
+  education:
+    container_name: education
+    image: sang2770/education:edu
+    volumes:
+      - ${WORKDIR}/logs/education:/app/logs
+    environment:
+      - PORT=80
+      - ENV=${MY_ENV}
+      - POSTGRES_URI=${POSTGRES_URI}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - JWK_URI=${JWK_URL}
+    ports:
+      - ${EDUCATION_PORT}:80
+    networks:
+      - education-network
+    restart: unless-stopped
+  admin:
+    container_name: admin
+    image: sang2770/education:fe-admin
+    ports:
+      - ${FE_PORT}:80
+    networks:
+      - education-network
+    restart: unless-stopped
+  client:
+    container_name: client
+    image: sang2770/education:fe-client
+    ports:
+      - ${FE_CLIENT_PORT}:80
+    networks:
+      - education-network
+    restart: unless-stopped
+networks:
+  education-network:
+    driver: bridge
+    name: education-network

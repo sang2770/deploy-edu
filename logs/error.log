@@ -1,0 +1,8 @@
+2023/04/26 04:35:29 [emerg] 1#1: no "events" section in configuration
+2023/04/26 04:36:08 [emerg] 1#1: no "events" section in configuration
+2023/04/26 04:36:14 [emerg] 1#1: no "events" section in configuration
+2023/04/26 04:37:00 [error] 22#22: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "localhost"
+2023/04/26 04:37:00 [error] 22#22: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8080/", host: "localhost"
+2023/04/26 04:37:00 [error] 22#22: *2 no live upstreams while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://localhost/favicon.ico", host: "localhost", referrer: "http://localhost/"
+2023/04/26 04:37:04 [error] 22#22: *2 no live upstreams while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://localhost/", host: "localhost"
+2023/04/26 04:37:04 [error] 22#22: *2 no live upstreams while connecting to upstream, client: 172.20.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", upstream: "http://localhost/favicon.ico", host: "localhost", referrer: "http://localhost/"
